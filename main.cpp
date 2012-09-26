@@ -26,6 +26,8 @@ int main() {
             char lobyte = m._ser.getc(),
                  hibyte = m._ser.getc();
             short val = ((lobyte) | (hibyte<<8));
+            // note that this line should have read clamp(float(TO - val)...)
+            // without the 1 - at the beginning. this is a bug.
             motorSpeedL += (1 - clamp(float(val - TO) / (TO-FROM), 0, 1)) * sensorWeightL[i];
             motorSpeedR += (1 - clamp(float(val - TO) / (TO-FROM), 0, 1)) * sensorWeightR[i];
         }
